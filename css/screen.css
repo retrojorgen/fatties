@@ -26,14 +26,14 @@ body {
 }
 
 /* line 42, ../scss/sass/screen.scss */
-.item {
+.ingredient {
   position: absolute;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 /* line 44, ../scss/sass/screen.scss */
-.item .inner-item {
+.ingredient .inner-ingredient {
   position: absolute;
   content: "";
   top: 10%;
@@ -42,4 +42,36 @@ body {
   height: 80%;
   background-size: 100% 100%;
   border-radius: 80px;
+}
+
+/* line 58, ../scss/sass/screen.scss */
+.recipeScreen {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+/* line 64, ../scss/sass/screen.scss */
+.recipeScreen .recipe {
+  position: relative;
+  padding: 10px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  margin-bottom: 10px;
+}
+/* line 71, ../scss/sass/screen.scss */
+.recipeScreen .recipe .title {
+  display: block;
+  color: white;
+}
+/* line 75, ../scss/sass/screen.scss */
+.recipeScreen .recipe .item {
+  position: relative;
+  display: inline-block;
+  border-radius: 80px;
+  width: 10%;
+  height: 10%;
 }

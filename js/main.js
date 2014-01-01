@@ -5,7 +5,7 @@ var tapController = function(event,src) {
     gameConfig = {
       cols: 10,
       rows: 8,
-      items : 10 * 8,
+      ingredients : 10 * 8,
       level: 1,
       container: $('.food')
     },

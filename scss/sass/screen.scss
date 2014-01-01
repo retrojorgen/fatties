@@ -39,9 +39,9 @@ body {
   @include box-sizing(border-box);
 }
 
-.item {
+.ingredient {
   position: absolute;
-  .inner-item {
+  .inner-ingredient {
     position: absolute;
     content: "";
     top: 10%;
@@ -57,7 +57,7 @@ body {
 }
 .recipeScreen {
   position: absolute;
-  background-color: rgba()
+  background-color: rgba(0,0,0,0.8);
   width: 100%;
   height: 100%;
   top: 0;

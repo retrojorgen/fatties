@@ -1,171 +1,168 @@
-var UIController = function (gameConfig, callback) {
+var UIController = function (gameConfig) {
   
-      elementsInDom = [],
-      gameConfig = {},
-      uIConfig = {},
-      recipescreen,
+  var recipescreen,
 
-  drawGameIngredients = function (ingredients) {
-    var rowCounter = gameConfig.rows-1,
-        colCounter = gameConfig.cols-1,
-        itemNr = gameConfig.items;
-    // reverse through items
-    // 
-    elementLoop(itemNr-1, colCounter, rowCounter);
-  },
-
-  createRecipeScreen = function() {
-    var recipeScreen = $('<div>')
-      .addClass('recipeScreen')
-      .css({
-        'left': window.innerWidth
-      });
+      drawGameIngredients = function (ingredientsController) {
+        var rowCounter = gameConfig.rows-1,
+            colCounter = gameConfig.cols-1,
+            ingredientsCount = gameConfig.ingredients;
+        // reverse through items
+        // 
+        elementLoop(ingredientsCount-1, colCounter, rowCounter, ingredientsController);
+      },
 
 
 
-  },
+      elementLoop = function(ingredientNr, colCounter, rowCounter, ingredientsController) {
+        var rowCol = rowColDecrease(colCounter, rowCounter);
 
-  elementLoop = function(itemNr, colCounter, rowCounter) {
-    var rowCol = rowColDecrease(colCounter, rowCounter);
-    if(itemNr>=0) {
-      if(!document.getElementById(itemNr)) {
-        currentElement = createNewElement(itemNr, colCounter, rowCounter, function() {
-          elementLoop(itemNr-1, rowCol.colCounter, rowCol.rowCounter);
-        });
+        if(ingredientNr>=0) {
+
+          if(!document.getElementById(ingredientNr)) {
+
+            createNewElement(ingredientNr, colCounter, rowCounter, ingredientsController, function() {
+              elementLoop(ingredientNr-1, rowCol.colCounter, rowCol.rowCounter, ingredientsController);
+            });
+          }
+
+          else {
+
+            elementLoop(ingredientNr-1, rowCol.colCounter, rowCol.rowCounter, ingredientsController);
+          }
+        }
+      },
+
+      createRecipeScreen = function() {
+        var recipeScreen = $('<div>')
+          .addClass('recipeScreen')
+          .css({
+            'left': window.innerWidth
+          });
+      },
+
+      getRow = function(itemNr, callback) {
+        callback(Math.floor(itemNr / gameConfig.cols)); // The girlfriend helped me with this one
+      }
+
+      deleteLoop = function(itemNr) {
         
-      }
-      else {
-        elementLoop(itemNr-1, rowCol.colCounter, rowCol.rowCounter);
-      }
-    }
-  },
-
-  getRow = function(itemNr, callback) {
-    callback(Math.floor(itemNr / gameConfig.cols)); // The girlfriend helped me with this one
-  }
-
-  deleteLoop = function(itemNr) {
-    
-    getRow(itemNr,function(itemRow) {
-      if(itemNr >= 0) {
-        emptyElement(itemNr, itemRow, (itemNr-(itemRow*10)), function () {
-          deleteLoop(itemNr-gameConfig.cols);
+        getRow(itemNr,function(itemRow) {
+          if(itemNr >= 0) {
+            emptyElement(itemNr, itemRow, (itemNr-(itemRow*10)), function () {
+              deleteLoop(itemNr-gameConfig.cols);
+            });
+          }
         });
-      }
-    });
-  },
+      },
 
-  rowColDecrease = function(_colCounter, _rowCounter) {
-      return {
-        'colCounter': (_colCounter === 0) ? (gameConfig.cols-1) : (_colCounter-1),
-        'rowCounter': (_colCounter === 0) ? (_rowCounter-1) : _rowCounter
-      }
-  },
+      rowColDecrease = function(_colCounter, _rowCounter) {
+          return {
+            'colCounter': (_colCounter === 0) ? (gameConfig.cols-1) : (_colCounter-1),
+            'rowCounter': (_colCounter === 0) ? (_rowCounter-1) : _rowCounter
+          }
+      },
 
-  configUI = function(callback) {
-    var innerWidth = window.innerWidth,
-        innerHeight = window.innerHeight-200,
-        widthPerItem = Math.floor(window.innerWidth/gameConfig.cols),
-        heightPerItem = Math.floor(window.innerHeight/gameConfig.rows);
+      configUI = function(callback) {
+        var innerWidth = window.innerWidth,
+            innerHeight = window.innerHeight-200,
+            widthPerItem = Math.floor(window.innerWidth/gameConfig.cols),
+            heightPerItem = Math.floor(window.innerHeight/gameConfig.rows);
 
-    uIConfig = {
-      'itemWidth' : widthPerItem,
-      'itemHeight' : heightPerItem
-    };
+        uIConfig = {
+          'itemWidth' : widthPerItem,
+          'itemHeight' : heightPerItem
+        };
 
-    callback();
-  },
-
-  emptyElement = function(itemNr, itemRow, itemCol, callback) {
-    console.log(itemNr, itemRow, itemCol);
-
-    var aboveElementNr = findElementsAbove(itemNr);
-
-    if(aboveElementNr) {
-      items.moveItem(itemNr, aboveElementNr);
-      $('#' + aboveElementNr)
-      .attr('id', itemNr);
-      animateToPosition($('#' + itemNr), itemRow, 100, function() {
         callback();
-      });
-    } else {
-      console.log("yepp");
-      items.setNewItem(itemNr);
-      createNewElement(itemNr, itemCol, itemRow, function () {
-        callback();
-      });
-    }
-  },
+      },
 
-  findElementsAbove = function(itemNr) {
-    for(var x = itemNr; x >= 0; x = x-gameConfig.cols) {
-      if(items.getItem(x)) {
-        return x;
-      }
-    }
-    return false;
-  },
+      emptyElement = function(itemNr, itemRow, itemCol, callback) {
+        console.log(itemNr, itemRow, itemCol);
 
-  createNewElement = function(itemNr, colCounter, rowCounter,callback) {
+        var aboveElementNr = findElementsAbove(itemNr);
 
-    var width = uIConfig.itemWidth,
-        height = uIConfig.itemHeight,
-        item = items.getItem(itemNr),
-        innerElement = $('<div>')
-          .addClass('inner-item')
-          .css({
-            'background-image': 'url(img/' + item.image + ')',
-          }),
-        element = $('<div>')
-          .attr('id', itemNr)
-          .addClass('item')
-          .addClass(item.name + '')
-          .css({
-            'width': uIConfig.itemWidth,
-            'height': uIConfig.itemHeight,
-            'left': uIConfig.itemWidth * colCounter + 'px',
-            'top': '-100px'
-          })
-          .append(innerElement);
-    gameConfig.container.append(element);
-    animateToPosition(element, rowCounter, 50, function() {
-      callback();
-    });
-    return element;
-  },
+        if(aboveElementNr) {
+          items.moveItem(itemNr, aboveElementNr);
+          $('#' + aboveElementNr)
+          .attr('id', itemNr);
+          animateToPosition($('#' + itemNr), itemRow, 100, function() {
+            callback();
+          });
+        } else {
+          console.log("yepp");
+          items.setNewItem(itemNr);
+          createNewElement(itemNr, itemCol, itemRow, function () {
+            callback();
+          });
+        }
+      },
 
-  removeElement = function(itemNr) {
-    var element = $('#' + itemNr);
-    element.remove();
-    items.removeItem(itemNr);
-    deleteLoop(itemNr);
-  },
+      findElementsAbove = function(itemNr) {
+        for(var x = itemNr; x >= 0; x = x-gameConfig.cols) {
+          if(items.getItem(x)) {
+            return x;
+          }
+        }
+        return false;
+      },
 
-  animateToPosition = function(element, rowCounter, speed, callback) {
-    element.animate({
-      'top': uIConfig.itemHeight * rowCounter + 'px',
-    }, speed, 'easein', function () {
-      callback();
-    });
-  },
+      createNewElement = function(ingredientNr, colCounter, rowCounter, ingredientsController, callback) {
+
+        var width = uIConfig.itemWidth,
+            height = uIConfig.itemHeight,
+            ingredient = ingredientsController.getIngredient(ingredientNr),
+            innerElement = $('<div>')
+              .addClass('inner-ingredient')
+              .css({
+                'background-image': 'url(img/' + ingredient.image + ')',
+              }),
+            element = $('<div>')
+              .attr('id', ingredientNr)
+              .addClass('ingredient')
+              .addClass(ingredient.name + '')
+              .css({
+                'width': uIConfig.itemWidth,
+                'height': uIConfig.itemHeight,
+                'left': uIConfig.itemWidth * colCounter + 'px',
+                'top': '-100px'
+              })
+              .append(innerElement);
+        gameConfig.container.append(element);
+        animateToPosition(element, rowCounter, 50, function() {
+          callback();
+        });
+      },
+
+      removeElement = function(itemNr) {
+        var element = $('#' + itemNr);
+        element.remove();
+        items.removeItem(itemNr);
+        deleteLoop(itemNr);
+      },
+
+      animateToPosition = function(element, rowCounter, speed, callback) {
+        element.animate({
+          'top': uIConfig.itemHeight * rowCounter + 'px',
+        }, speed, 'easein', function () {
+          callback();
+        });
+      },
 
 
-  randomiseElements = function() {
-    items.randomiseItems();
+      randomiseElements = function() {
+        items.randomiseItems();
 
-  },
+      },
 
-  init = function(callback) {
-    items.createItems(function() {
-      configUI(function() {
-        callback
-      }
-  };
+      init = function() {
+        configUI(function() {
+        });
+      };
 
-  init(function() {
-    callback();
-  });
+  init();
+
   return {
-    removeElement : removeElement
+    removeElement: removeElement,
+    drawGameIngredients: drawGameIngredients
   };
 };

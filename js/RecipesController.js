@@ -1,4 +1,4 @@
-var RecipesController = function(callback) {
+var RecipesController = function() {
   var basicRecipes,
 
       getRecipes = function() {
@@ -17,7 +17,7 @@ var RecipesController = function(callback) {
         return uniQueIngredients;
       },
 
-      init = function (callback) {
+      init = function () {
         basicRecipes = [
           {
             'name': 'basic burger',
@@ -30,15 +30,14 @@ var RecipesController = function(callback) {
             'points': 150
           }
         ]
-        callback();
       };
 
-      init(function() {
-        callback();
-      });
+  init();
 
-      return {
-        getRecipeIngredients: getRecipeIngredients,
-        getRecipes,getRecipes
-      }
+  return {
+    getRecipeIngredients: getRecipeIngredients,
+    getRecipes: getRecipes
+  };
+
+  
 }

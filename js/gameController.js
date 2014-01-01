@@ -1,11 +1,12 @@
-var Game  = function (gameConfig) {
+var Game  = function (_gameConfig) {
 
   var uiController,
-      itemController,
-      recipeController,
+      ingredientsController,
+      recipesController,
+      gameConfig,
       levels = [
         {
-          'name': 'Sausage Sam'
+          'name': 'Sausage Sam',
           'image': 'img/characters/sausage-sam.png'
         }
       ],
@@ -24,18 +25,16 @@ var Game  = function (gameConfig) {
       },
 
       startNewGame = function() {
-        ingredientsController = new IngredientsController();
-        recipeController = new RecipeController(function() {
-          ingredientsController.createIngredients(function() {
-            uiController = new UIController(function() {
-              uiController.drawGameIngredients(ingriendsController.getIngredients());
-            });
-        });
-      }
+        recipesController = new RecipesController();
+        ingredientsController = new IngredientsController(gameConfig.ingredients,recipesController);
+        uiController = new UIController(gameConfig);
+        uiController.drawGameIngredients(ingredientsController);
+      },
 
-      init = function () {
-        document.ontouchstart = function(e){ e.preventDefault(); }
-      }
-
-  init();
+      init = function() {
+        document.ontouchstart = function(e){ e.preventDefault(); };
+        gameConfig = _gameConfig;
+        startNewGame();
+      };
+      init();
 };
