@@ -1,0 +1,45 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:400,700);
+/* Welcome to Compass&.
+ * In this file you should write your main styles&. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 22, ../scss/sass/screen.scss */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-image: url(../img/app-background.jpg);
+  background-size: 200% 200%;
+  background-origin: center;
+}
+
+/* line 35, ../scss/sass/screen.scss */
+.food {
+  position: relative;
+  height: 80%;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 42, ../scss/sass/screen.scss */
+.item {
+  position: absolute;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 44, ../scss/sass/screen.scss */
+.item .inner-item {
+  position: absolute;
+  content: "";
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  background-size: 100% 100%;
+  border-radius: 80px;
+}
