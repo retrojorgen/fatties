@@ -11,7 +11,62 @@ var UIController = function (gameConfig) {
         elementLoop(ingredientsCount-1, colCounter, rowCounter, ingredientsController);
       },
 
+      drawRecipeScreen = function(config, recipesController, ingredientsController) {
+        var recipeScreen = $('<div>')
+              .addClass('recipeScreen')
+              .css({
+                'left': window.innerWidth-10
+              }),
+            header = $('<h1>')
+              .text('Recipes');
 
+        recipeScreen.append(header);
+
+        recipesController.getRecipes().forEach(function(recipe) {
+          recipeScreen.append(makeRecipeElement(recipe, ingredientsController));
+        });
+
+        $('body').append(recipeScreen);
+        config.container.hammer().on('swipeleft',function(event) {
+          recipeScreen.animate({
+            'left': 0
+          }, 100);
+        });
+        recipeScreen.hammer().on('swiperight', function() {
+          recipeScreen.animate({
+            'left': window.innerWidth-10
+          }, 100);
+        })
+        .hammer().on('swipeleft',function(event) {
+          recipeScreen.animate({
+            'left': 0
+          }, 100);
+        });
+      },
+
+      makeRecipeElement = function(recipe, ingredientsController) {
+        var recipeContainer = $('<div>')
+              .addClass('recipe')
+              .append(
+                $('<h2>')
+                  .addClass('title')
+                  .text(recipe.name)
+                );
+
+        recipe.recipe.forEach(function(ingredient) {
+          recipeContainer
+            .append(
+              $('<div>')
+                .addClass('ingredient')
+                .css({
+                  'background-image': 'url(img/' + ingredientsController.getIngredientType(ingredient).image + ')',
+                  'width': uIConfig.itemWidth,
+                  'height': uIConfig.itemHeight
+                })
+            );
+        });
+        return recipeContainer;
+      }
 
       elementLoop = function(ingredientNr, colCounter, rowCounter, ingredientsController) {
         var rowCol = rowColDecrease(colCounter, rowCounter);
@@ -30,14 +85,6 @@ var UIController = function (gameConfig) {
             elementLoop(ingredientNr-1, rowCol.colCounter, rowCol.rowCounter, ingredientsController);
           }
         }
-      },
-
-      createRecipeScreen = function() {
-        var recipeScreen = $('<div>')
-          .addClass('recipeScreen')
-          .css({
-            'left': window.innerWidth
-          });
       },
 
       getRow = function(itemNr, callback) {
@@ -63,14 +110,18 @@ var UIController = function (gameConfig) {
       },
 
       configUI = function(callback) {
-        var innerWidth = window.innerWidth,
-            innerHeight = window.innerHeight-200,
-            widthPerItem = Math.floor(window.innerWidth/gameConfig.cols),
-            heightPerItem = Math.floor(window.innerHeight/gameConfig.rows);
+        var innerWidth = gameConfig.container.width(),
+            widthPerItem = Math.floor(innerWidth/gameConfig.cols),
+            heightPerItem = widthPerItem;
+
+            gameConfig.container.css({
+              'height': gameConfig.rows*heightPerItem,
+              'bottom': 0
+            });
 
         uIConfig = {
           'itemWidth' : widthPerItem,
-          'itemHeight' : heightPerItem
+          'itemHeight' : widthPerItem
         };
 
         callback();
@@ -89,7 +140,6 @@ var UIController = function (gameConfig) {
             callback();
           });
         } else {
-          console.log("yepp");
           items.setNewItem(itemNr);
           createNewElement(itemNr, itemCol, itemRow, function () {
             callback();
@@ -163,6 +213,7 @@ var UIController = function (gameConfig) {
 
   return {
     removeElement: removeElement,
-    drawGameIngredients: drawGameIngredients
+    drawGameIngredients: drawGameIngredients,
+    drawRecipeScreen: drawRecipeScreen
   };
 };

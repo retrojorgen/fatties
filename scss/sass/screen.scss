@@ -26,16 +26,18 @@ body {
   margin: 0;
   padding: 0;
   background: {
-    image: url(../img/app-background.jpg);
+    color: rgba(255,255,255,1);
     size: 200% 200%;
     origin: center;
   }
 }
 
 .food {
-  position: relative;
-  height: 80%;
+  position: absolute;
   width: 100%;
+  max-width: 980px;
+  padding: 10px;
+  bottom: 0;
   @include box-sizing(border-box);
 }
 
@@ -57,27 +59,50 @@ body {
 }
 .recipeScreen {
   position: absolute;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(214,201,142,1);
   width: 100%;
   height: 100%;
   top: 0;
+  z-index: 5000;
+  text-align: center;
+  padding: 10px;
+  @include box-sizing(border-box);
+  @include single-box-shadow(0, 0, 40px, 2px, rgba(132,92,63,1),inset);
+
+  h1 {
+    color: white;
+    text-transform: uppercase;
+    font-family: times new roman;
+    color: (rgba(0,0,0,0.8));
+  }
+
   .recipe {
     position: relative;
     padding: 10px;
     @include box-sizing(border-box);
-    border-bottom: 1px solid rgba(255,255,255,0.5);
-    margin-bottom: 10px;
-    
+    margin-bottom: 15px;
+
     .title {
       display: block;
       color: white;
+      text-transform: uppercase;
+      font-family: times new roman;
+      font-weight: bold;
+      color: (rgba(0,0,0,0.6));
+      padding: 0;
+      margin: 0;
+      
     }
-    .item {
+
+    .ingredient {
       position: relative;
       display: inline-block;
       border-radius: 80px;
-      width: 10%;
-      height: 10%;
+      background: {
+        size: 100%;
+      }
+      margin: 5px;
+      @include single-box-shadow(0, 0, 10px, 2px, rgba(132,92,63,0.5));
     }
   }
 

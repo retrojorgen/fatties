@@ -13,14 +13,14 @@ var IngredientsController = function (ingredientCount, recipesController) {
           'id': 2.43432642632463426
         },
         {
-          'name': 'salad',
-          'image': 'item-salad.jpg',
-          'id': 4.0898564643453534
-        },
-        {
           'name': 'condiments',
           'image': 'item-condiments.jpg',
           'id': 5.4234723432373234
+        },
+        {
+          'name': 'salad',
+          'image': 'item-salad.jpg',
+          'id': 4.0898564643453534
         },
         {
           'name': 'cheese',
@@ -85,9 +85,15 @@ var IngredientsController = function (ingredientCount, recipesController) {
       getIngredient = function(ingredientNr) {
         return ingredients[ingredientNr];
       },
+
+      getIngredientType = function(ingredientNr) {
+        return ingredientTypes[ingredientNr];
+      },
+
       randomiseIngredients = function () {
         ingredients = _.shuffle(ingredients);
       },
+
       removeIngredient = function (ingredientNr) {
         ingredients[ingredientNr] = undefined;
       },
@@ -116,6 +122,7 @@ var IngredientsController = function (ingredientCount, recipesController) {
     createIngredients : createIngredients,
     getIngredients : getIngredients,
     getIngredient: getIngredient,
+    getIngredientType: getIngredientType,
     randomiseIngredients : randomiseIngredients,
     removeIngredient : removeIngredient,
     setNewIngredient : setNewIngredient,

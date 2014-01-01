@@ -26,7 +26,7 @@ var RecipesController = function() {
           },
           {
             'name': 'basic burger with condiments',
-            'recipe': [0,1,4,0],
+            'recipe': [0,1,2,0],
             'points': 150
           }
         ]

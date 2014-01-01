@@ -28,11 +28,15 @@ var Game  = function (_gameConfig) {
         recipesController = new RecipesController();
         ingredientsController = new IngredientsController(gameConfig.ingredients,recipesController);
         uiController = new UIController(gameConfig);
+        console.log
         uiController.drawGameIngredients(ingredientsController);
+        uiController.drawRecipeScreen({
+          'container' : gameConfig.container
+        }, recipesController, ingredientsController);
       },
 
       init = function() {
-        document.ontouchstart = function(e){ e.preventDefault(); };
+        document.ontouchstart = function(e){ e.preventDefault(); }
         gameConfig = _gameConfig;
         startNewGame();
       };

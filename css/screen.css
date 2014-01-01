@@ -10,29 +10,31 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  background-image: url(../img/app-background.jpg);
+  background-color: white;
   background-size: 200% 200%;
   background-origin: center;
 }
 
 /* line 35, ../scss/sass/screen.scss */
 .food {
-  position: relative;
-  height: 80%;
+  position: absolute;
   width: 100%;
+  max-width: 980px;
+  padding: 10px;
+  bottom: 0;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 42, ../scss/sass/screen.scss */
+/* line 44, ../scss/sass/screen.scss */
 .ingredient {
   position: absolute;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 44, ../scss/sass/screen.scss */
+/* line 46, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient {
   position: absolute;
   content: "";
@@ -44,34 +46,58 @@ body {
   border-radius: 80px;
 }
 
-/* line 58, ../scss/sass/screen.scss */
+/* line 60, ../scss/sass/screen.scss */
 .recipeScreen {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #d6c98e;
   width: 100%;
   height: 100%;
   top: 0;
+  z-index: 5000;
+  text-align: center;
+  padding: 10px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-box-shadow: inset 0 0 40px 2px #845c3f;
+  -webkit-box-shadow: inset 0 0 40px 2px #845c3f;
+  box-shadow: inset 0 0 40px 2px #845c3f;
 }
-/* line 64, ../scss/sass/screen.scss */
+/* line 72, ../scss/sass/screen.scss */
+.recipeScreen h1 {
+  color: white;
+  text-transform: uppercase;
+  font-family: times new roman;
+  color: rgba(0, 0, 0, 0.8);
+}
+/* line 79, ../scss/sass/screen.scss */
 .recipeScreen .recipe {
   position: relative;
   padding: 10px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
-/* line 71, ../scss/sass/screen.scss */
+/* line 85, ../scss/sass/screen.scss */
 .recipeScreen .recipe .title {
   display: block;
   color: white;
+  text-transform: uppercase;
+  font-family: times new roman;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 0;
+  margin: 0;
 }
-/* line 75, ../scss/sass/screen.scss */
-.recipeScreen .recipe .item {
+/* line 97, ../scss/sass/screen.scss */
+.recipeScreen .recipe .ingredient {
   position: relative;
   display: inline-block;
   border-radius: 80px;
-  width: 10%;
-  height: 10%;
+  background-size: 100%;
+  margin: 5px;
+  -moz-box-shadow: 0 0 10px 2px rgba(132, 92, 63, 0.5);
+  -webkit-box-shadow: 0 0 10px 2px rgba(132, 92, 63, 0.5);
+  box-shadow: 0 0 10px 2px rgba(132, 92, 63, 0.5);
 }
