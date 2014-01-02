@@ -1,5 +1,5 @@
 var UIController = function (gameConfig) {
-  
+
   var recipescreen,
 
       drawGameIngredients = function (ingredientsController) {
@@ -7,7 +7,7 @@ var UIController = function (gameConfig) {
             colCounter = gameConfig.cols-1,
             ingredientsCount = gameConfig.ingredients;
         // reverse through items
-        // 
+        //
         elementLoop(ingredientsCount-1, colCounter, rowCounter, ingredientsController);
       },
 
@@ -92,7 +92,7 @@ var UIController = function (gameConfig) {
       }
 
       deleteLoop = function(itemNr) {
-        
+
         getRow(itemNr,function(itemRow) {
           if(itemNr >= 0) {
             emptyElement(itemNr, itemRow, (itemNr-(itemRow*10)), function () {
@@ -111,12 +111,15 @@ var UIController = function (gameConfig) {
 
       configUI = function(callback) {
         var innerWidth = gameConfig.container.width(),
-            widthPerItem = Math.floor(innerWidth/gameConfig.cols),
-            heightPerItem = widthPerItem;
+            widthPerItem = Math.round(innerWidth/gameConfig.cols),
+            heightPerItem = widthPerItem,
+            containerHeight = gameConfig.rows*heightPerItem,
+            containerMarginTop = (containerHeight/2)*-1;
 
+            console.log(innerWidth);
             gameConfig.container.css({
-              'height': gameConfig.rows*heightPerItem,
-              'bottom': 0
+              'height': containerHeight,
+              'margin-top': containerMarginTop
             });
 
         uIConfig = {
@@ -174,7 +177,7 @@ var UIController = function (gameConfig) {
                 'width': uIConfig.itemWidth,
                 'height': uIConfig.itemHeight,
                 'left': uIConfig.itemWidth * colCounter + 'px',
-                'top': '-100px'
+                'top': ((uIConfig.itemHeight * rowCounter)-10) + 'px',
               })
               .append(innerElement);
         gameConfig.container.append(element);
@@ -194,6 +197,7 @@ var UIController = function (gameConfig) {
         element.animate({
           'top': uIConfig.itemHeight * rowCounter + 'px',
         }, speed, 'easein', function () {
+          element.children('.inner-ingredient').addClass('rotated');
           callback();
         });
       },
