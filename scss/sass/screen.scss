@@ -19,6 +19,32 @@ $regularFont : 'Ubuntu';
 $thinFont : Roboto-light;
 $mediumItalicFont : Roboto-medium-italic;
 
+@include keying(available) {
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    width: 200%;
+    height: 200%;
+    margin-left: -50%;
+    margin-top: -50%;
+    opacity: 0;
+  }
+}
+
+@include keying(selected) {
+  from {
+  }
+  to {
+    width: 140%;
+    height: 140%;
+    margin-left: -20%;
+    margin-top: -20%;
+    opacity: 1;
+  }
+}
+
+
 html,
 body {
   height: 100%;
@@ -27,29 +53,59 @@ body {
   padding: 0;
   background: {
     color: rgba(43,62,81,1);
-    size: 200% 200%;
+    size: 105%;
     origin: center;
+    image: url(../img/app-background.jpg);
+  }
+}
+
+.main-container {
+  height: 100%;
+  width: 100%;
+  &:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    bottom: 0;
+    background: {
+      image: url(../img/bottom-floorskirt.png);
+    }
   }
 }
 
 .food {
+  &:before {
+    content: "";
+    background: {
+      image: url(../img/silver-platter.png);
+      size: 100%;
+      repeat: no-repeat;
+    }
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    border-radius: 9px;
+    background: {
+      color: rgba(0,0,0,0.4);
+    }
+    @include single-box-shadow(0,0,40px,4px, rgba(0,0,0,0.5));
+  }
   position: absolute;
   width: 80%;
   left: 50%;
   top: 50%;
   margin-left: -40%;
   max-width: 980px;
-  border-radius: 10px;
-  background: {
-    color: rgba(0,0,0,0.4);
-  }
   @include box-sizing(border-box);
-  overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.6);
+  
 }
 
 .ingredient {
   position: absolute;
+  z-index: 100;
 
   .inner-ingredient {
     position: absolute;
@@ -66,14 +122,52 @@ body {
     @include box-sizing(border-box);
     @include perspective(1000px);
     @include transform3d(rotate3d(1,1,0,180deg));
-    @include transition(transform 1s, -webkit-transform 1s, opacity 1s);
+    @include transition(transform 500ms, -webkit-transform 500ms, opacity 500ms);
+    
     &.rotated {
         @include opacity(1);
-        @include transform3d(rotate3d(1,1,0,-180deg));
+        @include transform3d(rotate3d(1,0,0,-180deg));
+    }
+    z-index: 2001;
+    &.selected {
+      z-index: 2001;
+      &:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        margin-left: 0;
+        margin-top: 0;
+        top:0;
+        left: 0;
+        background: {
+          image: url(../img/selected.svg);
+          size: 100%;
+        }
+        z-index: 100;
+        opacity: 0;
+        @include animation(selected 200ms forwards);
+      }
+    }
+    &.available {
+      &:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        margin-left: 0;
+        margin-top: 0;
+        background: {
+          image: url(../img/selected.svg);
+          size: 100%;
+        }
+        z-index: 100;
+        opacity: 0;
+        @include animation(available 1s infinite);
+      }
     }
   }
 
-  border: 1px solid rgba(0,0,0,0.6);
   @include box-sizing(border-box);
 }
 .recipeScreen {
@@ -81,7 +175,6 @@ body {
   background-color: rgba(214,201,142,1);
   width: 100%;
   height: 100%;
-  top: 0;
   z-index: 5000;
   text-align: center;
   padding: 10px;

@@ -2,13 +2,13 @@ var UIController = function (gameConfig) {
 
   var recipescreen,
 
-      drawGameIngredients = function (ingredientsController) {
+      drawGameIngredients = function (ingredientsController, callback) {
         var rowCounter = gameConfig.rows-1,
             colCounter = gameConfig.cols-1,
             ingredientsCount = gameConfig.ingredients;
         // reverse through items
         //
-        elementLoop(ingredientsCount-1, colCounter, rowCounter, ingredientsController);
+        elementLoop(ingredientsCount-1, colCounter, rowCounter, ingredientsController, callback);
       },
 
       drawRecipeScreen = function(config, recipesController, ingredientsController) {
@@ -68,7 +68,7 @@ var UIController = function (gameConfig) {
         return recipeContainer;
       }
 
-      elementLoop = function(ingredientNr, colCounter, rowCounter, ingredientsController) {
+      elementLoop = function(ingredientNr, colCounter, rowCounter, ingredientsController, callback) {
         var rowCol = rowColDecrease(colCounter, rowCounter);
 
         if(ingredientNr>=0) {
@@ -76,14 +76,17 @@ var UIController = function (gameConfig) {
           if(!document.getElementById(ingredientNr)) {
 
             createNewElement(ingredientNr, colCounter, rowCounter, ingredientsController, function() {
-              elementLoop(ingredientNr-1, rowCol.colCounter, rowCol.rowCounter, ingredientsController);
+              elementLoop(ingredientNr-1, rowCol.colCounter, rowCol.rowCounter, ingredientsController, callback);
             });
           }
 
           else {
 
-            elementLoop(ingredientNr-1, rowCol.colCounter, rowCol.rowCounter, ingredientsController);
+            elementLoop(ingredientNr-1, rowCol.colCounter, rowCol.rowCounter, ingredientsController, callback);
           }
+        } else {
+          // Run callback at last iteration of ingredients
+          callback();
         }
       },
 
@@ -208,6 +211,11 @@ var UIController = function (gameConfig) {
 
       },
 
+      getIngredientElements = function() {
+        console.log($('.ingredient'));
+        return $('.food .ingredient');
+      }
+
       init = function() {
         configUI(function() {
         });
@@ -218,6 +226,7 @@ var UIController = function (gameConfig) {
   return {
     removeElement: removeElement,
     drawGameIngredients: drawGameIngredients,
-    drawRecipeScreen: drawRecipeScreen
+    drawRecipeScreen: drawRecipeScreen,
+    getIngredientElements: getIngredientElements
   };
 };

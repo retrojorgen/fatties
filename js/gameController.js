@@ -3,6 +3,7 @@ var Game  = function (_gameConfig) {
   var uiController,
       ingredientsController,
       recipesController,
+      scoreController,
       gameConfig,
       levels = [
         {
@@ -11,28 +12,23 @@ var Game  = function (_gameConfig) {
         }
       ],
 
-      deleteItem = function(event) {
-        var element = $(event.target);
-        var id = -1;
-
-        if(element.hasClass('item')) {
-          id = element.attr('id');
-          uiController.removeElement(id);
-        } else {
-          id = element.parent().attr('id');
-          uiController.removeElement(id);
-        }
-      },
+      itemTapped = function(event) {
+        var target = $(event.target);
+        target.addClass('selected');
+      }
 
       startNewGame = function() {
+        scoreController = new ScoreController();
         recipesController = new RecipesController();
         ingredientsController = new IngredientsController(gameConfig.ingredients,recipesController);
         uiController = new UIController(gameConfig);
-        console.log
-        uiController.drawGameIngredients(ingredientsController);
+        uiController.drawGameIngredients(ingredientsController, function() {
+          uiController.getIngredientElements().hammer().on('tap', itemTapped);
+        });
         uiController.drawRecipeScreen({
           'container' : gameConfig.container
         }, recipesController, ingredientsController);
+        
       },
 
       init = function() {
