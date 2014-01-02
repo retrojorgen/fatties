@@ -26,7 +26,7 @@ body {
   margin: 0;
   padding: 0;
   background: {
-    color: rgba(255,255,255,1);
+    color: rgba(43,62,81,1);
     size: 200% 200%;
     origin: center;
   }
@@ -34,15 +34,23 @@ body {
 
 .food {
   position: absolute;
-  width: 100%;
+  width: 80%;
+  left: 50%;
+  top: 50%;
+  margin-left: -40%;
   max-width: 980px;
-  padding: 10px;
-  bottom: 0;
+  border-radius: 10px;
+  background: {
+    color: rgba(0,0,0,0.4);
+  }
   @include box-sizing(border-box);
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.6);
 }
 
 .ingredient {
   position: absolute;
+
   .inner-ingredient {
     position: absolute;
     content: "";
@@ -51,10 +59,21 @@ body {
     width: 80%;
     height: 80%;
     background: {
-      size: 100% 100%;
+      size: 105% 105%;
     }
+    @include opacity(0);
     border-radius: 80px;
+    @include box-sizing(border-box);
+    @include perspective(1000px);
+    @include transform3d(rotate3d(1,1,0,180deg));
+    @include transition(transform 1s, -webkit-transform 1s, opacity 1s);
+    &.rotated {
+        @include opacity(1);
+        @include transform3d(rotate3d(1,1,0,-180deg));
+    }
   }
+
+  border: 1px solid rgba(0,0,0,0.6);
   @include box-sizing(border-box);
 }
 .recipeScreen {
@@ -91,7 +110,7 @@ body {
       color: (rgba(0,0,0,0.6));
       padding: 0;
       margin: 0;
-      
+
     }
 
     .ingredient {
