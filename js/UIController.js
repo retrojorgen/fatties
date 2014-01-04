@@ -148,7 +148,6 @@ var UIController = function (gameConfig) {
           });
         }
       },
-      // this should probably be moved to the ingredientsController,
 
       createNewElement = function(ingredientNr, colCounter, rowCounter, ingredientsController, callback) {
 
