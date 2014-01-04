@@ -148,15 +148,7 @@ var UIController = function (gameConfig) {
           });
         }
       },
-      // this should probably be moved to the ingredientsController
-      findElementsAbove = function(itemNr, ingredientsController) {
-        for(var x = itemNr; x >= 0; x = x-gameConfig.cols) {
-          if(ingredientsController.getIngredient(x)) {
-            return x;
-          }
-        }
-        return false;
-      },
+      // this should probably be moved to the ingredientsController,
 
       createNewElement = function(ingredientNr, colCounter, rowCounter, ingredientsController, callback) {
 
@@ -167,7 +159,8 @@ var UIController = function (gameConfig) {
               .addClass('inner-ingredient')
               .css({
                 'background-image': 'url(img/' + ingredient.image + ')',
-              }),
+              });
+
             element = $('<div>')
               .attr('id', ingredientNr)
               .addClass('ingredient')
@@ -185,16 +178,14 @@ var UIController = function (gameConfig) {
         });
       },
 
-      removeElement = function(itemNr, ingredientsController) {
-        var element = $('#' + itemNr);
+      removeElement = function(ingredientId) {
+        var element = $('#' + ingredientId);
         element.remove();
-        ingredientsController.removeIngredient(itemNr, ingredientsController);
-        deleteLoop(itemNr, ingredientsController);
       },
 
       removeIngredientsFromIdArray = function(itemArray, ingredientsController, callback) {
         itemArray.forEach(function(itemNr) {
-          removeElement(itemNr, ingredientsController, function ());
+          removeElement(itemNr, ingredientsController);
         });
       },
 
@@ -203,6 +194,15 @@ var UIController = function (gameConfig) {
           'top': uIConfig.itemHeight * rowCounter + 'px',
         }, speed, 'easein', function () {
           element.children('.inner-ingredient').addClass('rotated');
+          callback();
+        });
+      },
+
+      animateIdToNewRow = function(id, row, speed, callback) {
+        $('#' + id).animate({
+          'top': uIConfig.itemHeight * row + 'px',
+        }, speed, 'easein', function () {
+          $('#' + id).children('.inner-ingredient').addClass('rotated');
           callback();
         });
       },
@@ -251,6 +251,7 @@ var UIController = function (gameConfig) {
     removeElement: removeElement,
     drawGameIngredients: drawGameIngredients,
     drawRecipeScreen: drawRecipeScreen,
+    animateIdToNewRow: animateIdToNewRow,
     removeIngredientsFromIdArray: removeIngredientsFromIdArray,
     drawMakeIngredientsButton: drawMakeIngredientsButton,
     getIngredientElements: getIngredientElements,

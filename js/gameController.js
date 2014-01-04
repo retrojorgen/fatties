@@ -25,15 +25,21 @@ var Game  = function (_gameConfig) {
       },
 
       cookIngredients = function(event) {
+
         recipesController.checkRecipe(ingredientsController, gameData['tempScore'], function(success) {
           if(success) {
+
             scoreController.addScore(success);
             uiController.updateScoreBoard(scoreController.getScore());
-            uiController.removeIngredientsFromIdArray(gameData['tempIds'], ingredientsController, function() {
-              console.log(uiController.getIngredientElements());
-              uiController.getIngredientElements().hammer().on('tap', itemTapped);
+
+            removeIngredientsFromGame(gameData['tempIds'], function(key) {
+
+              gameData['tempIds'] = gameData['tempIds'].sort().reverse();
+              gameData['tempIds'].forEach(function(ingredientId, key) {
+                moveIngredientsDownRecursive(ingredientId, ingredientId, function() {
+                });
+              });
             });
-            resetGameData();
 
           } else {
             $('.inner-ingredient.selected')
@@ -41,6 +47,39 @@ var Game  = function (_gameConfig) {
             .addClass('failure');
             resetGameData();
             uiController.getIngredientElements().hammer().on('tap', itemTapped);
+          }
+        });
+      },
+
+      InsertNewIngredientInEmptyPlaceRecursive = function(startIngredientId, ingredientId,callback) {
+        if(!ingredientsController.getIngredient(ingredientId)) {
+          ingredientsController.setNewIngredient(ingredientId);
+        }
+      },
+
+      moveIngredientsDownRecursive = function(startIngredientId, ingredientId, callback) {
+        var ingredientAboveId = ingredientsController.findIngredientsAbove(ingredientId, gameConfig),
+            newRow = Math.floor(ingredientId/gameConfig.cols);
+
+        if(ingredientAboveId) {
+          console.log(ingredientId,ingredientAboveId,newRow);
+          ingredientsController.moveIngredient(ingredientId, ingredientAboveId);
+          $('#' + ingredientAboveId).attr('id', ingredientId);
+          uiController.animateIdToNewRow(ingredientId, newRow, 100, function() {
+            moveIngredientsDownRecursive(startIngredientId, ingredientAboveId, callback);
+          });
+        }
+        else {
+          callback();
+        }
+      },
+
+      removeIngredientsFromGame = function(ingredientIds,callback) {
+        ingredientIds.forEach(function(id, key) {
+          uiController.removeElement(id);
+          ingredientsController.removeIngredient(id, ingredientsController);
+          if(ingredientIds.length-1 === key) {
+            callback(key);
           }
         });
       },

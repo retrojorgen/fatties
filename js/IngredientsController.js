@@ -125,6 +125,15 @@ var IngredientsController = function (ingredientCount, recipesController) {
         ingredients[oldIngredientNr] = undefined;
       },
 
+      findIngredientsAbove = function(ingredientId, gameConfig) {
+        for(var x = ingredientId; x >= 0; x = x-gameConfig.cols) {
+          if(getIngredient(x)) {
+            return x;
+          }
+        }
+        return false;
+      }
+
       init = function () {
         allowedIngredients = recipesController.getRecipeIngredients();
         createIngredients();
@@ -140,6 +149,7 @@ var IngredientsController = function (ingredientCount, recipesController) {
     getIngredientsArray: getIngredientsArray,
     getIngredient: getIngredient,
     getIngredientType: getIngredientType,
+    findIngredientsAbove: findIngredientsAbove,
     randomiseIngredients : randomiseIngredients,
     removeIngredient : removeIngredient,
     setNewIngredient : setNewIngredient,
