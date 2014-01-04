@@ -3,68 +3,8 @@
  * In this file you should write your main styles&. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-@-webkit-keyframes available {
-  /* line 23, ../scss/sass/screen.scss */
-  50% {
-    opacity: 0.5;
-  }
-
-  /* line 26, ../scss/sass/screen.scss */
-  100% {
-    width: 200%;
-    height: 200%;
-    margin-left: -50%;
-    margin-top: -50%;
-    opacity: 0;
-  }
-}
-@-moz-keyframes available {
-  /* line 23, ../scss/sass/screen.scss */
-  50% {
-    opacity: 0.5;
-  }
-
-  /* line 26, ../scss/sass/screen.scss */
-  100% {
-    width: 200%;
-    height: 200%;
-    margin-left: -50%;
-    margin-top: -50%;
-    opacity: 0;
-  }
-}
-@-ms-keyframes available {
-  /* line 23, ../scss/sass/screen.scss */
-  50% {
-    opacity: 0.5;
-  }
-
-  /* line 26, ../scss/sass/screen.scss */
-  100% {
-    width: 200%;
-    height: 200%;
-    margin-left: -50%;
-    margin-top: -50%;
-    opacity: 0;
-  }
-}
-@keyframes available {
-  /* line 23, ../scss/sass/screen.scss */
-  50% {
-    opacity: 0.5;
-  }
-
-  /* line 26, ../scss/sass/screen.scss */
-  100% {
-    width: 200%;
-    height: 200%;
-    margin-left: -50%;
-    margin-top: -50%;
-    opacity: 0;
-  }
-}
 @-webkit-keyframes selected {
-  /* line 38, ../scss/sass/screen.scss */
+  /* line 25, ../scss/sass/screen.scss */
   to {
     width: 140%;
     height: 140%;
@@ -74,7 +14,7 @@
   }
 }
 @-moz-keyframes selected {
-  /* line 38, ../scss/sass/screen.scss */
+  /* line 25, ../scss/sass/screen.scss */
   to {
     width: 140%;
     height: 140%;
@@ -84,7 +24,7 @@
   }
 }
 @-ms-keyframes selected {
-  /* line 38, ../scss/sass/screen.scss */
+  /* line 25, ../scss/sass/screen.scss */
   to {
     width: 140%;
     height: 140%;
@@ -94,7 +34,7 @@
   }
 }
 @keyframes selected {
-  /* line 38, ../scss/sass/screen.scss */
+  /* line 25, ../scss/sass/screen.scss */
   to {
     width: 140%;
     height: 140%;
@@ -103,25 +43,86 @@
     opacity: 1;
   }
 }
-/* line 48, ../scss/sass/screen.scss */
+@-webkit-keyframes failure {
+  /* line 37, ../scss/sass/screen.scss */
+  90% {
+    opacity: 1;
+  }
+
+  /* line 40, ../scss/sass/screen.scss */
+  100% {
+    width: 140%;
+    height: 140%;
+    margin-left: -20%;
+    margin-top: -20%;
+    opacity: 0;
+  }
+}
+@-moz-keyframes failure {
+  /* line 37, ../scss/sass/screen.scss */
+  90% {
+    opacity: 1;
+  }
+
+  /* line 40, ../scss/sass/screen.scss */
+  100% {
+    width: 140%;
+    height: 140%;
+    margin-left: -20%;
+    margin-top: -20%;
+    opacity: 0;
+  }
+}
+@-ms-keyframes failure {
+  /* line 37, ../scss/sass/screen.scss */
+  90% {
+    opacity: 1;
+  }
+
+  /* line 40, ../scss/sass/screen.scss */
+  100% {
+    width: 140%;
+    height: 140%;
+    margin-left: -20%;
+    margin-top: -20%;
+    opacity: 0;
+  }
+}
+@keyframes failure {
+  /* line 37, ../scss/sass/screen.scss */
+  90% {
+    opacity: 1;
+  }
+
+  /* line 40, ../scss/sass/screen.scss */
+  100% {
+    width: 140%;
+    height: 140%;
+    margin-left: -20%;
+    margin-top: -20%;
+    opacity: 0;
+  }
+}
+/* line 49, ../scss/sass/screen.scss */
 html,
 body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
+  -webkit-text-size-adjust: 100%;
   background-color: #2b3e51;
   background-size: 105%;
   background-origin: center;
   background-image: url(../img/app-background.jpg);
 }
 
-/* line 62, ../scss/sass/screen.scss */
+/* line 64, ../scss/sass/screen.scss */
 .main-container {
   height: 100%;
   width: 100%;
 }
-/* line 65, ../scss/sass/screen.scss */
+/* line 67, ../scss/sass/screen.scss */
 .main-container:after {
   content: "";
   position: absolute;
@@ -131,7 +132,7 @@ body {
   background-image: url(../img/bottom-floorskirt.png);
 }
 
-/* line 77, ../scss/sass/screen.scss */
+/* line 79, ../scss/sass/screen.scss */
 .food {
   position: absolute;
   width: 80%;
@@ -143,7 +144,7 @@ body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 78, ../scss/sass/screen.scss */
+/* line 80, ../scss/sass/screen.scss */
 .food:before {
   content: "";
   background-image: url(../img/silver-platter.png);
@@ -161,7 +162,7 @@ body {
   box-shadow: 0 0 40px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* line 106, ../scss/sass/screen.scss */
+/* line 108, ../scss/sass/screen.scss */
 .ingredient {
   position: absolute;
   z-index: 100;
@@ -169,7 +170,7 @@ body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 110, ../scss/sass/screen.scss */
+/* line 112, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient {
   position: absolute;
   content: "";
@@ -196,7 +197,7 @@ body {
   transition: transform 500ms, -webkit-transform 500ms, opacity 500ms;
   z-index: 2001;
 }
-/* line 127, ../scss/sass/screen.scss */
+/* line 129, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient.rotated {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
@@ -204,11 +205,26 @@ body {
   -webkit-transform: rotate3d(1, 0, 0, -180deg);
   transform: rotate3d(1, 0, 0, -180deg);
 }
-/* line 132, ../scss/sass/screen.scss */
+/* line 135, ../scss/sass/screen.scss */
+.ingredient .inner-ingredient:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin-left: 0;
+  margin-top: 0;
+  top: 0;
+  left: 0;
+  -moz-transition: margin 100ms, width 100ms;
+  -o-transition: margin 100ms, width 100ms;
+  -webkit-transition: margin 100ms, width 100ms;
+  transition: margin 100ms, width 100ms;
+}
+/* line 147, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient.selected {
   z-index: 2001;
 }
-/* line 134, ../scss/sass/screen.scss */
+/* line 149, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient.selected:before {
   content: "";
   position: absolute;
@@ -228,26 +244,32 @@ body {
   -o-animation: selected 200ms forwards;
   animation: selected 200ms forwards;
 }
-/* line 153, ../scss/sass/screen.scss */
-.ingredient .inner-ingredient.available:after {
+/* line 167, ../scss/sass/screen.scss */
+.ingredient .inner-ingredient.failure {
+  z-index: 2001;
+}
+/* line 169, ../scss/sass/screen.scss */
+.ingredient .inner-ingredient.failure:before {
   content: "";
   position: absolute;
   width: 100%;
   height: 100%;
   margin-left: 0;
   margin-top: 0;
-  background-image: url(../img/selected.svg);
+  top: 0;
+  left: 0;
+  background-image: url(../img/failure.svg);
   background-size: 100%;
   z-index: 100;
   opacity: 0;
-  -webkit-animation: available 1s infinite;
-  -moz-animation: available 1s infinite;
-  -ms-animation: available 1s infinite;
-  -o-animation: available 1s infinite;
-  animation: available 1s infinite;
+  -webkit-animation: failure 200ms forwards;
+  -moz-animation: failure 200ms forwards;
+  -ms-animation: failure 200ms forwards;
+  -o-animation: failure 200ms forwards;
+  animation: failure 200ms forwards;
 }
 
-/* line 173, ../scss/sass/screen.scss */
+/* line 191, ../scss/sass/screen.scss */
 .recipeScreen {
   position: absolute;
   background-color: #d6c98e;
@@ -263,14 +285,14 @@ body {
   -webkit-box-shadow: inset 0 0 40px 2px #845c3f;
   box-shadow: inset 0 0 40px 2px #845c3f;
 }
-/* line 184, ../scss/sass/screen.scss */
+/* line 202, ../scss/sass/screen.scss */
 .recipeScreen h1 {
   color: white;
   text-transform: uppercase;
   font-family: times new roman;
   color: rgba(0, 0, 0, 0.8);
 }
-/* line 191, ../scss/sass/screen.scss */
+/* line 209, ../scss/sass/screen.scss */
 .recipeScreen .recipe {
   position: relative;
   padding: 10px;
@@ -279,7 +301,7 @@ body {
   box-sizing: border-box;
   margin-bottom: 15px;
 }
-/* line 197, ../scss/sass/screen.scss */
+/* line 215, ../scss/sass/screen.scss */
 .recipeScreen .recipe .title {
   display: block;
   color: white;
@@ -290,7 +312,7 @@ body {
   padding: 0;
   margin: 0;
 }
-/* line 209, ../scss/sass/screen.scss */
+/* line 227, ../scss/sass/screen.scss */
 .recipeScreen .recipe .ingredient {
   position: relative;
   display: inline-block;
@@ -300,4 +322,36 @@ body {
   -moz-box-shadow: 0 0 10px 2px rgba(132, 92, 63, 0.5);
   -webkit-box-shadow: 0 0 10px 2px rgba(132, 92, 63, 0.5);
   box-shadow: 0 0 10px 2px rgba(132, 92, 63, 0.5);
+}
+
+/* line 240, ../scss/sass/screen.scss */
+.score-board {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 40%;
+  padding: 10px;
+  color: white;
+  text-transform: uppercase;
+  text-size: 10px;
+  border: 1px solid white;
+  border-radius: 30px;
+}
+/* line 252, ../scss/sass/screen.scss */
+.score-board:before {
+  content: "Calories: ";
+}
+
+/* line 257, ../scss/sass/screen.scss */
+.ingredients-button {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  width: 40%;
+  padding: 10px;
+  color: white;
+  text-transform: uppercase;
+  text-size: 10px;
+  border: 1px solid white;
+  border-radius: 30px;
 }

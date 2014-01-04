@@ -94,12 +94,11 @@ var UIController = function (gameConfig) {
         callback(Math.floor(itemNr / gameConfig.cols)); // The girlfriend helped me with this one
       }
 
-      deleteLoop = function(itemNr) {
-
+      deleteLoop = function(itemNr, ingredientsController) {
         getRow(itemNr,function(itemRow) {
           if(itemNr >= 0) {
-            emptyElement(itemNr, itemRow, (itemNr-(itemRow*10)), function () {
-              deleteLoop(itemNr-gameConfig.cols);
+            emptyElement(itemNr, itemRow, (itemNr-(itemRow*10)), ingredientsController, function () {
+              deleteLoop(itemNr-gameConfig.cols, ingredientsController);
             });
           }
         });
@@ -119,7 +118,6 @@ var UIController = function (gameConfig) {
             containerHeight = gameConfig.rows*heightPerItem,
             containerMarginTop = (containerHeight/2)*-1;
 
-            console.log(innerWidth);
             gameConfig.container.css({
               'height': containerHeight,
               'margin-top': containerMarginTop
@@ -133,29 +131,27 @@ var UIController = function (gameConfig) {
         callback();
       },
 
-      emptyElement = function(itemNr, itemRow, itemCol, callback) {
-        console.log(itemNr, itemRow, itemCol);
-
-        var aboveElementNr = findElementsAbove(itemNr);
+      emptyElement = function(itemNr, itemRow, itemCol, ingredientsController, callback) {
+        var aboveElementNr = findElementsAbove(itemNr, ingredientsController);
 
         if(aboveElementNr) {
-          items.moveItem(itemNr, aboveElementNr);
+          ingredientsController.moveIngredient(itemNr, aboveElementNr);
           $('#' + aboveElementNr)
           .attr('id', itemNr);
           animateToPosition($('#' + itemNr), itemRow, 100, function() {
             callback();
           });
         } else {
-          items.setNewItem(itemNr);
-          createNewElement(itemNr, itemCol, itemRow, function () {
+          ingredientsController.setNewIngredient(itemNr);
+          createNewElement(itemNr, itemCol, itemRow, ingredientsController, function () {
             callback();
           });
         }
       },
-
-      findElementsAbove = function(itemNr) {
+      // this should probably be moved to the ingredientsController
+      findElementsAbove = function(itemNr, ingredientsController) {
         for(var x = itemNr; x >= 0; x = x-gameConfig.cols) {
-          if(items.getItem(x)) {
+          if(ingredientsController.getIngredient(x)) {
             return x;
           }
         }
@@ -189,11 +185,17 @@ var UIController = function (gameConfig) {
         });
       },
 
-      removeElement = function(itemNr) {
+      removeElement = function(itemNr, ingredientsController) {
         var element = $('#' + itemNr);
         element.remove();
-        items.removeItem(itemNr);
-        deleteLoop(itemNr);
+        ingredientsController.removeIngredient(itemNr, ingredientsController);
+        deleteLoop(itemNr, ingredientsController);
+      },
+
+      removeIngredientsFromIdArray = function(itemArray, ingredientsController, callback) {
+        itemArray.forEach(function(itemNr) {
+          removeElement(itemNr, ingredientsController, function ());
+        });
       },
 
       animateToPosition = function(element, rowCounter, speed, callback) {
@@ -211,13 +213,35 @@ var UIController = function (gameConfig) {
 
       },
 
+      drawScoreBoard = function () {
+        var scoreBoard = $('<div>')
+          .addClass('score-board')
+          .text("0");
+
+        $('body').append(scoreBoard);
+      },
+
+      updateScoreBoard = function(score) {
+        $('.score-board')
+          .text(score);
+      },
+
+      drawMakeIngredientsButton = function() {
+        var ingredientsButton = $('<button>')
+          .addClass('ingredients-button')
+          .text('Make Ingredients');
+        $('body').append(ingredientsButton);
+        return ingredientsButton;
+      },
+
       getIngredientElements = function() {
-        console.log($('.ingredient'));
+        
         return $('.food .ingredient');
-      }
+      },
 
       init = function() {
         configUI(function() {
+          drawScoreBoard();
         });
       };
 
@@ -227,6 +251,9 @@ var UIController = function (gameConfig) {
     removeElement: removeElement,
     drawGameIngredients: drawGameIngredients,
     drawRecipeScreen: drawRecipeScreen,
-    getIngredientElements: getIngredientElements
+    removeIngredientsFromIdArray: removeIngredientsFromIdArray,
+    drawMakeIngredientsButton: drawMakeIngredientsButton,
+    getIngredientElements: getIngredientElements,
+    updateScoreBoard: updateScoreBoard
   };
 };

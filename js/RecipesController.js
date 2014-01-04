@@ -17,6 +17,22 @@ var RecipesController = function() {
         return uniQueIngredients;
       },
 
+      checkRecipe = function(ingredientsController, recipe, callback) {
+
+        var recipeToggle = false;
+
+        basicRecipes.forEach(function(savedRecipe) {
+          savedRecipeArray = [ingredientsController.getIngredientsArray(savedRecipe.recipe)];
+          if(_.isEqual(recipe, savedRecipe.recipe)) {
+            callback(savedRecipe.points);
+            recipeToggle = true;
+          }
+        });
+        if(!recipeToggle) {
+          callback(false);
+        }
+      },
+
       init = function () {
         basicRecipes = [
           {
@@ -36,6 +52,7 @@ var RecipesController = function() {
 
   return {
     getRecipeIngredients: getRecipeIngredients,
+    checkRecipe: checkRecipe,
     getRecipes: getRecipes
   };
 

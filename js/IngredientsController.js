@@ -76,18 +76,35 @@ var IngredientsController = function (ingredientCount, recipesController) {
           var rand = Math.floor(Math.random() 
           * ((allowedIngredients.length-1) - 0 + 1) + 0);
           return ingredientTypes[rand];
-      }
+      },
 
       getIngredients = function() {
         return ingredients;
       },
 
       getIngredient = function(ingredientNr) {
-        return ingredients[ingredientNr];
+        return ingredients[ingredientNr.toString()];
       },
 
       getIngredientType = function(ingredientNr) {
-        return ingredientTypes[ingredientNr];
+        var ingredientTypeId = getIngredientTypeKey(ingredientNr);
+        return ingredientTypes[ingredientTypeId];
+      },
+
+      getIngredientsArray = function(ingredientTypeKeyArray) {
+        ingredientArray = [];
+        ingredientTypeKeyArray.forEach(function(ingredientTypeKey) {
+          ingredientArray.push(getIngredientTypeFromTypeKey(ingredientTypeKey));
+        });
+        return ingredientArray;
+      }
+
+      getIngredientTypeFromTypeKey = function(typeKey) {
+        return ingredientTypes[typeKey];
+      };
+
+      getIngredientTypeKey = function(ingredientNr) {
+        return ingredientTypes.indexOf(getIngredient(ingredientNr));
       },
 
       randomiseIngredients = function () {
@@ -100,14 +117,11 @@ var IngredientsController = function (ingredientCount, recipesController) {
 
       setNewIngredient = function (ingredientNr) {
 
-        var rand = Math.floor(Math.random() 
-          * ((ingredientTypes.length-1) - 0 + 1) + 0);
-
-        ingredients[ingredientNr] = ingredientTypes[rand];
+        ingredients[ingredientNr] = createIngredient();
       },
 
       moveIngredient = function (newIngredientNr, oldIngredientNr) {
-        ingredients[newIngredientNr] = oldingredientNr;
+        ingredients[newIngredientNr] = oldIngredientNr;
         ingredients[oldIngredientNr] = undefined;
       },
 
@@ -121,6 +135,9 @@ var IngredientsController = function (ingredientCount, recipesController) {
   return {
     createIngredients : createIngredients,
     getIngredients : getIngredients,
+    getIngredientTypeKey: getIngredientTypeKey,
+    getIngredientTypeFromTypeKey: getIngredientTypeFromTypeKey,
+    getIngredientsArray: getIngredientsArray,
     getIngredient: getIngredient,
     getIngredientType: getIngredientType,
     randomiseIngredients : randomiseIngredients,
