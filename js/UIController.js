@@ -75,7 +75,7 @@ var UIController = function (gameConfig) {
 
           if(!document.getElementById(ingredientNr)) {
 
-            createNewElement(ingredientNr, colCounter, rowCounter, ingredientsController, function() {
+            createNewElement(ingredientNr, colCounter, rowCounter, ingredientsController, function(element) {
               elementLoop(ingredientNr-1, rowCol.colCounter, rowCol.rowCounter, ingredientsController, callback);
             });
           }
@@ -143,7 +143,7 @@ var UIController = function (gameConfig) {
           });
         } else {
           ingredientsController.setNewIngredient(itemNr);
-          createNewElement(itemNr, itemCol, itemRow, ingredientsController, function () {
+          createNewElement(itemNr, itemCol, itemRow, ingredientsController, function (element) {
             callback();
           });
         }
@@ -172,8 +172,8 @@ var UIController = function (gameConfig) {
               })
               .append(innerElement);
         gameConfig.container.append(element);
-        animateToPosition(element, rowCounter, 50, function() {
-          callback();
+        animateToPosition(element, rowCounter, 10, function() {
+          callback(element);
         });
       },
 
