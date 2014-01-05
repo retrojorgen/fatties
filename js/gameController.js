@@ -36,7 +36,22 @@ var Game  = function (_gameConfig) {
 
               gameData['tempIds'] = gameData['tempIds'].sort().reverse();
               gameData['tempIds'].forEach(function(ingredientId, key) {
-                moveIngredientsDownRecursive(ingredientId, ingredientId, function() {
+
+                moveIngredientsDownRecursive(ingredientId, ingredientId, function(emptyIngredientIds) {
+
+                    emptyIngredientIds = emptyIngredientIds.sort().reverse();
+
+                    emptyIngredientIds.forEach(function(ingredientId) {
+                      ingredientsController.getIngredientRowColFromId(ingredientId, gameConfig.rows, gameConfig.cols, function(rowCol) {
+                        if(!ingredientsController.getIngredient(ingredientId)) {
+                          ingredientsController.setNewIngredient(ingredientId);
+                          console.log(uiController);
+                          uiController.createNewElement(ingredientId, rowCol.col, rowCol.row, ingredientsController, function () {
+                            console.log('bla');
+                          });
+                        }
+                      });
+                    });
                 });
               });
             });
@@ -59,18 +74,27 @@ var Game  = function (_gameConfig) {
 
       moveIngredientsDownRecursive = function(startIngredientId, ingredientId, callback) {
         var ingredientAboveId = ingredientsController.findIngredientsAbove(ingredientId, gameConfig),
-            newRow = Math.floor(ingredientId/gameConfig.cols);
+            newRow = Math.floor(ingredientId/gameConfig.cols),
+            emptyIngredients = [];
+
 
         if(ingredientAboveId) {
-          console.log(ingredientId,ingredientAboveId,newRow);
           ingredientsController.moveIngredient(ingredientId, ingredientAboveId);
           $('#' + ingredientAboveId).attr('id', ingredientId);
           uiController.animateIdToNewRow(ingredientId, newRow, 100, function() {
+            console.log(ingredientId);
             moveIngredientsDownRecursive(startIngredientId, ingredientAboveId, callback);
           });
         }
         else {
-          callback();
+          
+          for(var x = ingredientId; x >= 0; x = x-gameConfig.cols) {
+            if(!ingredientsController.getIngredient(x)) {
+              emptyIngredients.push(x);
+            }
+          }
+          console.log('bla' + emptyIngredients);
+          callback(emptyIngredients);
         }
       },
 

@@ -134,10 +134,27 @@ var IngredientsController = function (ingredientCount, recipesController) {
         return false;
       }
 
+      getIngredientRowColFromId = function(ingredientId, rows, cols, callback) {
+        var counterId = 0;
+        for(var y = 0; y <= rows-1; y++) {
+          for(var x = 0; x <= cols-1; x++) {
+            if(ingredientId == counterId) {
+              callback({
+                'row': y,
+                'col': x
+              });
+            }
+            counterId++;
+          }
+        }
+      },
+
       init = function () {
         allowedIngredients = recipesController.getRecipeIngredients();
         createIngredients();
       };
+
+      
 
   init();
 
@@ -148,6 +165,7 @@ var IngredientsController = function (ingredientCount, recipesController) {
     getIngredientTypeFromTypeKey: getIngredientTypeFromTypeKey,
     getIngredientsArray: getIngredientsArray,
     getIngredient: getIngredient,
+    getIngredientRowColFromId: getIngredientRowColFromId,
     getIngredientType: getIngredientType,
     findIngredientsAbove: findIngredientsAbove,
     randomiseIngredients : randomiseIngredients,

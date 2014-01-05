@@ -251,6 +251,7 @@ var UIController = function (gameConfig) {
     drawGameIngredients: drawGameIngredients,
     drawRecipeScreen: drawRecipeScreen,
     animateIdToNewRow: animateIdToNewRow,
+    createNewElement: createNewElement,
     removeIngredientsFromIdArray: removeIngredientsFromIdArray,
     drawMakeIngredientsButton: drawMakeIngredientsButton,
     getIngredientElements: getIngredientElements,
