@@ -26,7 +26,6 @@ var Game  = function (_gameConfig) {
               gameData['tempIds'].push(id);
               gameData['tempScore'].push(ingredientsController.getIngredientTypeKey(id));
             } else {
-              
             }
       },
 
