@@ -64,6 +64,7 @@ body {
 .main-container {
   height: 100%;
   width: 100%;
+  overflow: hidden;
   &:after {
     content: "";
     position: absolute;
@@ -81,7 +82,7 @@ body {
     content: "";
     background: {
       image: url(../img/silver-platter.png);
-      size: 100%;
+      size: 100% 100%;
       repeat: no-repeat;
     }
     position: absolute;
@@ -189,6 +190,7 @@ body {
   @include box-sizing(border-box);
 }
 .recipeScreen {
+  display: none;
   position: absolute;
   background-color: rgba(214,201,142,1);
   width: 100%;
@@ -239,31 +241,82 @@ body {
 
 .score-board {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 40%;
+  width: 90%;
   padding: 10px;
   color: white;
   text-transform: uppercase;
-
-  text-size: 10px;
+  left: 5%;
+  top: 10px;
+  font-size: 16px;
   border: 1px solid white;
-  border-radius: 30px;
+  border-radius: 10px;
   &:before {
     content: "Calories: "
   }
+
+  @include box-sizing(border-box);
 }
 
 .ingredients-button {
   position: absolute;
-  top: 50px;
-  left: 10px;
+  top: 60px;
+  left: 5%;
   width: 40%;
   padding: 10px;
   color: white;
   text-transform: uppercase;
+  font-size: 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 0;
+  
+  @include background-image(linear-gradient(#74205f, #4a143d));
+  @include single-box-shadow(0,0,10px,1px, rgba(0,0,0,0.5));
+  @include box-sizing(border-box);
+  &:before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.3);
+    top: 0;
+    left: 0;
+  }
+  &:active {
+    @include background-image(linear-gradient(#4a143d, #74205f));
+    &:before {
+      display: none;
+    }
+  }
 
-  text-size: 10px;
-  border: 1px solid white;
-  border-radius: 30px;
+}
+
+.shuffle-button {
+  position: absolute;
+  top: 60px;
+  left: 55%;
+  width: 40%;
+  padding: 10px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 0;
+  
+  @include background-image(linear-gradient(#ab14b4, #4a143d));
+  @include single-box-shadow(0,0,10px,1px, rgba(0,0,0,0.5));
+  @include box-sizing(border-box);
+  &:before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.3);
+    top: 0;
+    left: 0;
+  }
+  &:active {
+    @include background-image(linear-gradient(#4a143d, #ab14b4));
+  }
 }

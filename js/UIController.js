@@ -1,7 +1,5 @@
 var UIController = function (gameConfig) {
 
-  var recipescreen,
-
       drawGameIngredients = function (ingredientsController, callback) {
         var rowCounter = gameConfig.rows-1,
             colCounter = gameConfig.cols-1,
@@ -225,12 +223,22 @@ var UIController = function (gameConfig) {
           .text(score);
       },
 
-      drawMakeIngredientsButton = function() {
-        var ingredientsButton = $('<button>')
+      drawCookButton = function() {
+        var button = $('<button>')
           .addClass('ingredients-button')
-          .text('Make Ingredients');
-        $('body').append(ingredientsButton);
-        return ingredientsButton;
+          .text('Cook')
+          .fadeIn('fast');
+        $('body').append(button);
+        return button;
+      },
+
+      drawShuffleButton = function() {
+        var button = $('<button>')
+          .addClass('shuffle-button')
+          .text('Shuffle')
+          .fadeIn('fast');
+        $('body').append(button);
+        return button;
       },
 
       getIngredientElements = function() {
@@ -253,7 +261,8 @@ var UIController = function (gameConfig) {
     animateIdToNewRow: animateIdToNewRow,
     createNewElement: createNewElement,
     removeIngredientsFromIdArray: removeIngredientsFromIdArray,
-    drawMakeIngredientsButton: drawMakeIngredientsButton,
+    drawCookButton: drawCookButton,
+    drawShuffleButton: drawShuffleButton,
     getIngredientElements: getIngredientElements,
     updateScoreBoard: updateScoreBoard
   };

@@ -1,4 +1,4 @@
-var Game  = function (_gameConfig) {
+var Game  = function () {
 
   var uiController,
       ingredientsController,
@@ -12,15 +12,20 @@ var Game  = function (_gameConfig) {
       levels = [
         {
           'name': 'Sausage Sam',
-          'image': 'img/characters/sausage-sam.png'
+          'image': 'img/characters/sausage-sam.png',
+          'cols': 6,
+          'rows': 8,
+          'ingredients' : 6 * 8,
+          'container': $('.food')
         }
       ],
 
       itemTapped = function(event) {
-
+        event.stopPropagation();
+        console.log(event.target, $(event.target).parent());
         var target = $(event.target).hasClass('ingredient') ? $(event.target) : $(event.target).parent(),
             id = parseInt(target.attr('id'));
-            target.children('inner-ingredient').removeClass('failure');
+            target.children('.inner-ingredient').removeClass('failure');
             console.log(id);
 
             if(gameData['tempIds'].indexOf(id) === -1) {
@@ -32,6 +37,10 @@ var Game  = function (_gameConfig) {
             } else {
 
             }
+      },
+
+      shuffleIngredients = function(event) {
+        console.log('fart face');
       },
 
       cookIngredients = function(event) {
@@ -65,9 +74,7 @@ var Game  = function (_gameConfig) {
                         ingredientsController.setNewIngredient(ingredientId);
                         
                         uiController.createNewElement(ingredientId, rowCol.col, rowCol.row, ingredientsController, function (element) {
-
-                          console.log($('#' + ingredientId));
-                          element.hammer().on('tap', itemTapped);
+                          console.log(ingredientsController.getIngredients());
                         });
                       }
                     });
@@ -147,9 +154,10 @@ var Game  = function (_gameConfig) {
         ingredientsController = new IngredientsController(gameConfig.ingredients,recipesController);
         uiController = new UIController(gameConfig);
         uiController.drawGameIngredients(ingredientsController, function() {
-          uiController.getIngredientElements().hammer().on('tap', itemTapped);
+          gameConfig.container.hammer().on('tap', itemTapped);
           gameConfig.container.hammer().on('swipedown', cookIngredients);
-          uiController.drawMakeIngredientsButton().hammer().on('tap', cookIngredients);
+          uiController.drawCookButton().hammer().on('tap', cookIngredients);
+          uiController.drawShuffleButton().hammer().on('tap', shuffleIngredients);
         });
         uiController.drawRecipeScreen({
           'container' : gameConfig.container
@@ -160,7 +168,7 @@ var Game  = function (_gameConfig) {
       init = function() {
 
         document.ontouchstart = function(e){ e.preventDefault(); }
-        gameConfig = _gameConfig;
+        gameConfig = levels[0];
         startNewGame();
       };
       init();

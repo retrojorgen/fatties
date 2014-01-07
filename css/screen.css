@@ -121,8 +121,9 @@ body {
 .main-container {
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
-/* line 67, ../scss/sass/screen.scss */
+/* line 68, ../scss/sass/screen.scss */
 .main-container:after {
   content: "";
   position: absolute;
@@ -132,7 +133,7 @@ body {
   background-image: url(../img/bottom-floorskirt.png);
 }
 
-/* line 79, ../scss/sass/screen.scss */
+/* line 80, ../scss/sass/screen.scss */
 .food {
   position: absolute;
   width: 80%;
@@ -144,11 +145,11 @@ body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 80, ../scss/sass/screen.scss */
+/* line 81, ../scss/sass/screen.scss */
 .food:before {
   content: "";
   background-image: url(../img/silver-platter.png);
-  background-size: 100%;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   position: absolute;
   width: 110%;
@@ -162,7 +163,7 @@ body {
   box-shadow: 0 0 40px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* line 108, ../scss/sass/screen.scss */
+/* line 109, ../scss/sass/screen.scss */
 .ingredient {
   position: absolute;
   z-index: 100;
@@ -170,7 +171,7 @@ body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 112, ../scss/sass/screen.scss */
+/* line 113, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient {
   position: absolute;
   content: "";
@@ -197,7 +198,7 @@ body {
   transition: transform 500ms, -webkit-transform 500ms, opacity 500ms;
   z-index: 2001;
 }
-/* line 129, ../scss/sass/screen.scss */
+/* line 130, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient.rotated {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
@@ -205,7 +206,7 @@ body {
   -webkit-transform: rotate3d(1, 0, 0, -180deg);
   transform: rotate3d(1, 0, 0, -180deg);
 }
-/* line 135, ../scss/sass/screen.scss */
+/* line 136, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient:before {
   content: "";
   position: absolute;
@@ -220,11 +221,11 @@ body {
   -webkit-transition: margin 100ms, width 100ms;
   transition: margin 100ms, width 100ms;
 }
-/* line 147, ../scss/sass/screen.scss */
+/* line 148, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient.selected {
   z-index: 2001;
 }
-/* line 149, ../scss/sass/screen.scss */
+/* line 150, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient.selected:before {
   content: "";
   position: absolute;
@@ -244,11 +245,11 @@ body {
   -o-animation: selected 200ms forwards;
   animation: selected 200ms forwards;
 }
-/* line 167, ../scss/sass/screen.scss */
+/* line 168, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient.failure {
   z-index: 2001;
 }
-/* line 169, ../scss/sass/screen.scss */
+/* line 170, ../scss/sass/screen.scss */
 .ingredient .inner-ingredient.failure:before {
   content: "";
   position: absolute;
@@ -269,8 +270,9 @@ body {
   animation: failure 200ms forwards;
 }
 
-/* line 191, ../scss/sass/screen.scss */
+/* line 192, ../scss/sass/screen.scss */
 .recipeScreen {
+  display: none;
   position: absolute;
   background-color: #d6c98e;
   width: 100%;
@@ -285,14 +287,14 @@ body {
   -webkit-box-shadow: inset 0 0 40px 2px #845c3f;
   box-shadow: inset 0 0 40px 2px #845c3f;
 }
-/* line 202, ../scss/sass/screen.scss */
+/* line 204, ../scss/sass/screen.scss */
 .recipeScreen h1 {
   color: white;
   text-transform: uppercase;
   font-family: times new roman;
   color: rgba(0, 0, 0, 0.8);
 }
-/* line 209, ../scss/sass/screen.scss */
+/* line 211, ../scss/sass/screen.scss */
 .recipeScreen .recipe {
   position: relative;
   padding: 10px;
@@ -301,7 +303,7 @@ body {
   box-sizing: border-box;
   margin-bottom: 15px;
 }
-/* line 215, ../scss/sass/screen.scss */
+/* line 217, ../scss/sass/screen.scss */
 .recipeScreen .recipe .title {
   display: block;
   color: white;
@@ -312,7 +314,7 @@ body {
   padding: 0;
   margin: 0;
 }
-/* line 227, ../scss/sass/screen.scss */
+/* line 229, ../scss/sass/screen.scss */
 .recipeScreen .recipe .ingredient {
   position: relative;
   display: inline-block;
@@ -324,34 +326,111 @@ body {
   box-shadow: 0 0 10px 2px rgba(132, 92, 63, 0.5);
 }
 
-/* line 240, ../scss/sass/screen.scss */
+/* line 242, ../scss/sass/screen.scss */
 .score-board {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 40%;
+  width: 90%;
   padding: 10px;
   color: white;
   text-transform: uppercase;
-  text-size: 10px;
+  left: 5%;
+  top: 10px;
+  font-size: 16px;
   border: 1px solid white;
-  border-radius: 30px;
+  border-radius: 10px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
-/* line 252, ../scss/sass/screen.scss */
+/* line 253, ../scss/sass/screen.scss */
 .score-board:before {
   content: "Calories: ";
 }
 
-/* line 257, ../scss/sass/screen.scss */
+/* line 260, ../scss/sass/screen.scss */
 .ingredients-button {
   position: absolute;
-  top: 50px;
-  left: 10px;
+  top: 60px;
+  left: 5%;
   width: 40%;
   padding: 10px;
   color: white;
   text-transform: uppercase;
-  text-size: 10px;
-  border: 1px solid white;
-  border-radius: 30px;
+  font-size: 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 0;
+  background-image: -moz-linear-gradient(#74205f, #4a143d);
+  background-image: -o-linear-gradient(#74205f, #4a143d);
+  background-image: -webkit-linear-gradient(#74205f, #4a143d);
+  background-image: linear-gradient(#74205f, #4a143d);
+  -moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 276, ../scss/sass/screen.scss */
+.ingredients-button:before {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  top: 0;
+  left: 0;
+}
+/* line 285, ../scss/sass/screen.scss */
+.ingredients-button:active {
+  background-image: -moz-linear-gradient(#4a143d, #74205f);
+  background-image: -o-linear-gradient(#4a143d, #74205f);
+  background-image: -webkit-linear-gradient(#4a143d, #74205f);
+  background-image: linear-gradient(#4a143d, #74205f);
+}
+/* line 287, ../scss/sass/screen.scss */
+.ingredients-button:active:before {
+  display: none;
+}
+
+/* line 294, ../scss/sass/screen.scss */
+.shuffle-button {
+  position: absolute;
+  top: 60px;
+  left: 55%;
+  width: 40%;
+  padding: 10px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 0;
+  background-image: -moz-linear-gradient(#ab14b4, #4a143d);
+  background-image: -o-linear-gradient(#ab14b4, #4a143d);
+  background-image: -webkit-linear-gradient(#ab14b4, #4a143d);
+  background-image: linear-gradient(#ab14b4, #4a143d);
+  -moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 310, ../scss/sass/screen.scss */
+.shuffle-button:before {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  top: 0;
+  left: 0;
+}
+/* line 319, ../scss/sass/screen.scss */
+.shuffle-button:active {
+  background-image: -moz-linear-gradient(#4a143d, #ab14b4);
+  background-image: -o-linear-gradient(#4a143d, #ab14b4);
+  background-image: -webkit-linear-gradient(#4a143d, #ab14b4);
+  background-image: linear-gradient(#4a143d, #ab14b4);
 }

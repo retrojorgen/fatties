@@ -121,7 +121,7 @@ var IngredientsController = function (ingredientCount, recipesController) {
       },
 
       moveIngredient = function (newIngredientNr, oldIngredientNr) {
-        ingredients[newIngredientNr] = oldIngredientNr;
+        ingredients[newIngredientNr] = getIngredient(oldIngredientNr);
         ingredients[oldIngredientNr] = undefined;
       },
 
